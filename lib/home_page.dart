@@ -22,7 +22,9 @@ class HomePage extends StatelessWidget{
                 scrollDirection: Axis.horizontal,
                 itemCount: 15,
                 itemBuilder: (BuildContext context, int index) => Card(
-                  child: Center(child: Text('Dummy Card Text')),
+                  child: Center(child: Text('Dummy Card Text')
+
+                  ),
                 ),
               ),
             ),
