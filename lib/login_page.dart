@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/home_page.dart';
 import 'package:sizer/sizer.dart';
 
+import 'bottom_nav_page.dart';
+
 class LoginPage extends StatelessWidget
 {
   TextEditingController emailController=TextEditingController();
@@ -110,7 +112,9 @@ class LoginPage extends StatelessWidget
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            HomePage()));
+                            BottomBar(
+                              initindx: 0,
+                            )));
 
                 // Get.to(BottomBar(),
                 //     duration: Duration(milliseconds: 500), //duration of transitions, default 1 sec

@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  fluentui_system_icons: ^1.1.200
+  get: ^4.6.5
   sizer: ^2.0.15
   google_fonts: ^3.0.1
   flutter:
