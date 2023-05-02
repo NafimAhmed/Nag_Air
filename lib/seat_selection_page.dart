@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:new_nagair/confirm_booking_page.dart';
 import 'package:sizer/sizer.dart';
 
 class SeatSelectionPage extends StatefulWidget
@@ -75,13 +76,13 @@ class _SeatSelectionPageState extends State<SeatSelectionPage> {
 
                 // Navigator.pop(context);
 
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) =>
-                //             BottomBar(
-                //               initindx: 0,
-                //             )));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                           ConfirmBookingPage()
+                    )
+                );
 
                 // Get.to(BottomBar(),
                 //     duration: Duration(milliseconds: 500), //duration of transitions, default 1 sec
