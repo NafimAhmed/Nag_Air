@@ -28,8 +28,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  toggle_switch: ^2.1.0
   book_my_seat: ^1.0.1
   fluttertoast: ^8.1.1
+  barcode_widget: ^2.0.3
   fluentui_system_icons: ^1.1.200
   get: ^4.6.5
   sizer: ^2.0.15
