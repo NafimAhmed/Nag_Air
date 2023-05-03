@@ -20,6 +20,7 @@ class TicketScreen extends StatelessWidget
       body: SingleChildScrollView(
         child: Container(
           child: Column(
+
             children: [
 
               SizedBox(height: 30,),
