@@ -359,6 +359,61 @@ class TicketScreen extends StatelessWidget
                               // )
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Ticket number",style: GoogleFonts.openSans(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black
+                                  )),
+                                  Text("Ticket No.",style: GoogleFonts.openSans(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey
+                                  ),)
+                                ],
+                              ),
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text( "Booking Code",
+                                      style: GoogleFonts.openSans(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black
+                                      )
+                                  ),
+                                  Text("Booking Code",style: GoogleFonts.openSans(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey
+                                  ),)
+                                ],
+                              )
+                              // AppColumnLayout(
+                              //   firstText: "Passenger Name",
+                              //   SecondText: "Passenger",
+                              // ),
+                              // AppColumnLayout(
+                              //   firstText: "5221 365869",
+                              //   SecondText: "Passport/NID",
+                              // )
+                              // Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     Text("Passenger name", style: Styles.headlineStyle3.copyWith(color: Colors.black),),
+                              //     Gap(5),
+                              //     Text("Passenger", style: Styles.headlineStyle3.copyWith(color: Colors.grey.shade500),),
+                              //   ],
+                              // )
+                            ],
+                          ),
 
                           SizedBox(height: 30,),
 
