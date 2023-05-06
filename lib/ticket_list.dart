@@ -1,11 +1,14 @@
 
 
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:http/http.dart' as http;
 import 'seat_selection_page.dart';
+import 'thick_container.dart';
 
 class TicketList extends StatefulWidget
 {
@@ -23,13 +26,40 @@ class _TicketListState extends State<TicketList> {
   final _status = ["First", "Released", "Blocked"];
 
 
+  List<dynamic>? listTicket;
+
+  Future getUserDataTicket() async
+  {
+    var responseTicket=await http.get(
+        Uri.parse('https://nag-air-server.vercel.app/api/show-search-flight-result?flightReturningDate=flightReturningDate&travelType=oneWay&flightFromCurrentLocation=syllet&flightToDestinationLocation=dhaka&flightDepartingDate=05%2F06%2F23')
+    );
+
+    // var responseInternational=await http.get(
+    //     Uri.parse('https://nag-air-server.vercel.app/api/show-international-flight')
+    // );
+
+    setState((){
+      listTicket = jsonDecode(responseTicket.body);
+      //listInternational=jsonDecode(responseInternational.body);
+
+    });
+
+    //print(list?.length);
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    getUserDataTicket();
+
     return Scaffold(
       body: ListView.builder(
 
-        itemCount: 5,
+        itemCount: listTicket?.length,
 
           itemBuilder: (context,int index){
 
@@ -41,33 +71,139 @@ class _TicketListState extends State<TicketList> {
                   children: [
                     Column(
                       children: [
-                        Text("Dhaka"),
-                        Text("10:30 am")
+                        Text(
+                          "${listTicket![index]["flightFromCurrentLocation"]}",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Text("${listTicket![index]["flightDepartingTime"]}",
+
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          ),
+
+                        )
                       ],
                     ),
 
-                    Text("To"),
+                    ///////////////////////////////////////////////
+
+
+
+                    Container(
+                      width: 30.w,
+                      child: Expanded(
+                          child: Stack(
+                            children:[
+
+
+                              SizedBox(
+                                  height: 24.sp,
+                                  child: LayoutBuilder(
+                                    builder: (BuildContext context, BoxConstraints constrains){
+
+                                      return Flex(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        direction: Axis.horizontal,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: List.generate((constrains.constrainWidth()/6).floor(), (index) => SizedBox(
+                                          width: 4,
+                                          height: 2,
+                                          child: DecoratedBox(
+                                            decoration: BoxDecoration(
+                                                color: Colors.black
+                                            ),
+                                          ),
+                                        )
+                                          /*Text("-",
+                                    style: GoogleFonts.openSans(
+                                      color: Colors.white,
+                                    ),
+                                  )*/
+
+                                        ),
+
+                                      );
+                                    },
+
+
+                                  )
+                              ),
+
+
+
+                              Container(
+                                margin: EdgeInsets.only(top: 3.5),
+                                child: Center(child: Transform.rotate(
+                                  angle: 1.5,
+                                  child : Icon(Icons.local_airport_rounded,color: Colors.black,),) ,),
+                              )
+
+                            ],
+
+
+                          )
+                      ),
+                    ),
+
+
+                    /////////////////////////////////////////////////
+
+                    // Text("To",
+                    //
+                    //   style: TextStyle(
+                    //       fontSize: 25,
+                    //       fontWeight: FontWeight.bold
+                    //   ),
+                    //
+                    // ),
 
                     Column(
                       children: [
-                        Text("Bankok"),
-                        Text("1:30 pm")
+                        Text("${listTicket![index]["flightToDestinationLocation"]}",
+
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Text("1:30 pm",
+
+                          style:TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          ),
+
+                        )
                       ],
                     ),
                   ],
                 ),
+
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Air craft model : "),
-                    Text("Flight No. : "),
+                    SizedBox(height: 10,),
+                    Text("Air craft model : ${listTicket![index]["planeNumber"]}",
+
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade600
+                      ),
+
+                    ),
+                    //Text("Flight No. : "),
 
 
 
 
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
-                      height: 15.h,
+                      height: 20.h,
                       width: 100.w,
                       child: Row(
                         children: [
@@ -75,8 +211,8 @@ class _TicketListState extends State<TicketList> {
                             child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: 3,
-                              itemBuilder: (BuildContext context, int index) => Card(
+                              itemCount: listTicket?[index]["packageList"].length,
+                              itemBuilder: (BuildContext context,int indx) => Card(
                                   child: InkWell(
                                           onTap: (){
 
@@ -89,7 +225,8 @@ class _TicketListState extends State<TicketList> {
 
                                           },
                                           child: Container(
-                                            padding: EdgeInsets.all(5),
+
+                                            padding: EdgeInsets.all(10),
                                             decoration: BoxDecoration(
                                               color: Colors.pink.shade100,
 
@@ -102,11 +239,33 @@ class _TicketListState extends State<TicketList> {
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text("Plutinum Class"),
+                                                Text("${listTicket?[index]["packageList"][indx]["packageName"]}",
 
-                                                Text("Price : 56000"),
+                                                  style: TextStyle(
+                                                      fontSize: 25,
+                                                      fontWeight: FontWeight.bold
+                                                  ),
 
-                                                Text("20 Seats\nremaining")
+                                                ),
+
+                                                Text("Price : ${listTicket?[index]["packageList"][indx]["packagesPrice"]}",
+
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.w600
+                                                  ),
+
+                                                ),
+
+                                                SizedBox(height: 15,),
+
+                                                Text("20 Seats\nremaining",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      //fontWeight: FontWeight.bold
+                                                  ),
+
+                                                )
 
                                               ],
                                             ),
@@ -119,124 +278,6 @@ class _TicketListState extends State<TicketList> {
                       ),
                     ),
 
-                      //  Row(
-                      //   children: [
-                      //
-                      //
-                      //
-                      //
-                      //     InkWell(
-                      //       onTap: (){
-                      //
-                      //       },
-                      //       child: Container(
-                      //         padding: EdgeInsets.all(5),
-                      //         decoration: BoxDecoration(
-                      //           color: Colors.pink.shade100,
-                      //
-                      //           border: Border.all(
-                      //             width: 2,
-                      //             color: Colors.green
-                      //           ),
-                      //           borderRadius: BorderRadius.circular(12),
-                      //         ),
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.start,
-                      //           children: [
-                      //             Text("Plutinum Class"),
-                      //
-                      //             Text("Price : 56000"),
-                      //
-                      //             Text("20 Seats\nremaining")
-                      //
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     InkWell(
-                      //       onTap: (){
-                      //
-                      //       },
-                      //       child: Container(
-                      //         padding: EdgeInsets.all(5),
-                      //         decoration: BoxDecoration(
-                      //           color: Colors.pink.shade100,
-                      //
-                      //           border: Border.all(
-                      //               width: 2,
-                      //               color: Colors.green
-                      //           ),
-                      //           borderRadius: BorderRadius.circular(12),
-                      //         ),
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.start,
-                      //           children: [
-                      //             Text("Golden Class"),
-                      //
-                      //             Text("Price : 56000"),
-                      //
-                      //             Text("20 Seats\nremaining")
-                      //
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     InkWell(
-                      //       onTap: (){
-                      //
-                      //       },
-                      //       child: Container(
-                      //         padding: EdgeInsets.all(5),
-                      //         decoration: BoxDecoration(
-                      //           color: Colors.pink.shade100,
-                      //
-                      //           border: Border.all(
-                      //               width: 2,
-                      //               color: Colors.green
-                      //           ),
-                      //           borderRadius: BorderRadius.circular(12),
-                      //         ),
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.start,
-                      //           children: [
-                      //             Text("Plutinum Class"),
-                      //
-                      //             Text("Price : 56000"),
-                      //
-                      //             Text("20 Seats\nremaining")
-                      //
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //
-                      //
-                      //
-                      //
-                      //
-                      //   ],
-                      // ),
-
-
-                    // SizedBox(
-                    //   height: 50.0,
-                    //   child: RadioGroup<String>.builder(
-                    //     direction: Axis.horizontal,
-                    //     groupValue: _verticalGroupValue,
-                    //     horizontalAlignment: MainAxisAlignment.spaceAround,
-                    //     onChanged: (value) => setState(() {
-                    //       _verticalGroupValue = value ?? '';
-                    //     }),
-                    //     items: _status,
-                    //     textStyle: const TextStyle(
-                    //       fontSize: 15,
-                    //       color: Colors.blue,
-                    //     ),
-                    //     itemBuilder: (item) => RadioButtonBuilder(
-                    //       item,
-                    //     ),
-                    //   ),
-                    // ),
 
 
                   ],

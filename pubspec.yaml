@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   toggle_switch: ^2.1.0
+  http: ^0.13.6
   book_my_seat: ^1.0.1
   fluttertoast: ^8.1.1
   barcode_widget: ^2.0.3

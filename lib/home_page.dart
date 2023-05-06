@@ -1,22 +1,53 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:new_nagair/ticket_view.dart';
 import 'package:sizer/sizer.dart';
 import 'bottom_nav_page.dart';
+import 'package:http/http.dart' as http;
 
-class HomePage extends StatelessWidget{
-
-
-
-
-
+class HomePage extends StatefulWidget{
 
 
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+
+  List<dynamic>? listDomestic,listInternational;
+
+  Future getUserDataDomestic() async
+  {
+    var responseDomestic=await http.get(
+        Uri.parse('https://nag-air-server.vercel.app/api/show-domestic-flight')
+    );
+
+    var responseInternational=await http.get(
+        Uri.parse('https://nag-air-server.vercel.app/api/show-international-flight')
+    );
+
+    setState((){
+      listDomestic = jsonDecode(responseDomestic.body);
+      listInternational=jsonDecode(responseInternational.body);
+
+    });
+
+    //print(list?.length);
+
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+
+    getUserDataDomestic();
+
     // TODO: implement build
     return Scaffold(
       body: SingleChildScrollView(
@@ -144,6 +175,231 @@ class HomePage extends StatelessWidget{
                 ),
               ),
 
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Domestic Destinetions ",
+                    style: TextStyle(fontSize: 21,color: Color(0xFF3b3b3b),fontWeight: FontWeight.bold),
+                  ),
+
+
+
+                  InkWell(
+                    onTap: (){
+                      print("You are tapped");
+                    },
+                    child : Text("View all",
+                      style: TextStyle(fontSize: 16,color: Colors.pink.shade800,fontWeight: FontWeight.w500),
+                    ),)
+
+
+
+                ],
+              ),
+
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                height: 210,
+                width: 100.h,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listDomestic?.length,
+                        itemBuilder: (BuildContext context, int index) => Card(
+                            child:  Container(
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: Colors.indigo,
+                                borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Image.network("${listDomestic![index]["locationImage"]}",
+                                      height: 100,
+
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Text("${listDomestic![index]["flightLocationName"]}",
+                                    style: TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
+                                  ),
+
+                                  Text("${listDomestic![index]["tickitPrice"]}",
+                                      style: TextStyle(fontSize: 17,color: Color(0xFFeeedf2)/*Colors.grey.shade500*/,fontWeight: FontWeight.bold)//TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
+                                  ),
+
+                                  SizedBox(height: 8,),
+
+
+                                ],
+                              ),
+                            )//Center(child: Text('Dummy Card Text')),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("International Flight ",
+                    style: TextStyle(fontSize: 21,color: Color(0xFF3b3b3b),fontWeight: FontWeight.bold),
+                  ),
+
+
+
+                  InkWell(
+                    onTap: (){
+                      print("You are tapped");
+                    },
+                    child : Text("View all",
+                      style: TextStyle(fontSize: 16,color: Colors.pink.shade800,fontWeight: FontWeight.w500),
+                    ),)
+
+
+
+                ],
+              ),
+
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                height: 210,
+                width: 100.h,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listInternational?.length,
+                        itemBuilder: (BuildContext context, int index) => Card(
+                            child:  Container(
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                  color: Colors.pink,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Image.network("${listInternational![index]["locationImage"]}",
+                                      height: 100,
+
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Text("${listInternational![index]["flightLocationName"]}",
+                                    style: TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
+                                  ),
+
+                                  Text("${listInternational![index]["tickitPrice"]}",
+                                      style: TextStyle(fontSize: 17,color: Color(0xFFeeedf2)/*Colors.grey.shade500*/,fontWeight: FontWeight.bold)//TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
+                                  ),
+
+                                  SizedBox(height: 8,),
+
+
+                                ],
+                              ),
+                            )//Center(child: Text('Dummy Card Text')),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Additional Services ",
+                    style: TextStyle(fontSize: 21,color: Color(0xFF3b3b3b),fontWeight: FontWeight.bold),
+                  ),
+
+
+
+                  InkWell(
+                    onTap: (){
+                      print("You are tapped");
+                    },
+                    child : Text("View all",
+                      style: TextStyle(fontSize: 16,color: Colors.pink.shade800,fontWeight: FontWeight.w500),
+                    ),)
+
+
+
+                ],
+              ),
+
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                height: 210,
+                width: 100.h,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 15,
+                        itemBuilder: (BuildContext context, int index) => Card(
+                            child:  Container(
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Image.network("https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg",
+                                      height: 100,
+
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Text("Car rent",
+                                    style: TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
+                                  ),
+
+                                  Text("From 250 BDT",
+                                      style: TextStyle(fontSize: 17,color: Color(0xFFeeedf2)/*Colors.grey.shade500*/,fontWeight: FontWeight.bold)//TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
+                                  ),
+
+                                  SizedBox(height: 8,),
+
+
+                                ],
+                              ),
+                            )//Center(child: Text('Dummy Card Text')),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+
+
 
             ],
           ),
@@ -151,5 +407,4 @@ class HomePage extends StatelessWidget{
       ),
     );
   }
-
 }

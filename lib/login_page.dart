@@ -2,8 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/home_page.dart';
+import 'package:new_nagair/registration_page.dart';
 import 'package:sizer/sizer.dart';
 
 import 'bottom_nav_page.dart';
@@ -179,7 +181,7 @@ class LoginPage extends StatelessWidget
                 //         builder: (context) =>
                 //             RegistrationScreen()));
 
-                // Get.to(RegistrationScreen());
+                 Get.to(RegistrationPage());
 
 
               },
@@ -197,6 +199,14 @@ class LoginPage extends StatelessWidget
         ),
       ),
     );
+  }
+
+
+
+  void Register(){
+
+
+
   }
 
 }

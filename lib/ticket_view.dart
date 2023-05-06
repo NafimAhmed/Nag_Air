@@ -197,7 +197,8 @@ class TicketView extends StatelessWidget {
                           }
 
                       ),
-                    )),
+                    )
+                    ),
                     SizedBox(
                       height: 2.5.h,
                       width: 10.sp,
