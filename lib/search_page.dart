@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/ticket_list.dart';
 import 'package:sizer/sizer.dart';
 
-
+enum SingingCharacter { One_way, Round }
 // class SearchPage extends StatefulWidget{
 //
 //
@@ -15,21 +15,33 @@ import 'package:sizer/sizer.dart';
 //   State<SearchPage> createState() => _SearchPageState();
 // }
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
    List<String> listDeparature = <String>['Deparature', 'Dhaka', 'Rajshahi', 'Jassor'];
 
    List<String> listArrival = <String>['Arrival', 'Dhaka', 'Rajshahi', 'Jassor'];
 
    RxString dropdownValueDeparature = 'Deparature'.obs;
+
    RxString dropdownValueArrival = 'Arrival'.obs;
+
    RxString newDate="Select journey date".obs;
 
-   DateTime date=DateTime(2023,01,1);
+   RxString newDateReturn="Select return date".obs;
 
+   DateTime date=DateTime(2023,01,1);
+   SingingCharacter? _character = SingingCharacter.One_way;
+   bool Visible=false;
 
 
   @override
   Widget build(BuildContext context) {
+
+
 
 
     // TODO: implement build
@@ -48,6 +60,72 @@ class SearchPage extends StatelessWidget {
               //Gap(AppLayout.getHeight(20)),
 
               SizedBox(height: 20,),
+
+
+
+              ///////////////////////////////////////////////////////
+
+              Container(
+                decoration: BoxDecoration(
+
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Travel type : "),
+                    Row(
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Radio<SingingCharacter>(
+                              value: SingingCharacter.One_way,
+                              groupValue: _character,
+                              onChanged: (SingingCharacter? value) {
+                                setState(() {
+                                  _character = value;
+                                  Visible=false;
+                                });
+                              },
+                            ),
+                            const Text('One Way'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio<SingingCharacter>(
+                              value: SingingCharacter.Round,
+                              groupValue: _character,
+                              onChanged: (SingingCharacter? value) {
+                                setState(() {
+                                  _character = value;
+                                  Visible=true;
+                                });
+                              },
+                            ),
+                            const Text('Round trip'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+
+
+
+
+
+
+
+
+              ////////////////////////////////////
+
+
+
+
+
+
 
 
 
@@ -226,6 +304,79 @@ class SearchPage extends StatelessWidget {
 
               SizedBox(height: 20,),
 
+              ////////////////////////////////////////////////////////////
+
+              Visibility(
+                child: InkWell(
+                  onTap: ()async{
+
+                    DateTime? newtmr=await showDatePicker(
+                        context: context,
+                        initialDate: date,
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2100));
+                    if(newtmr==null){
+                      return;
+                    }
+                    else{
+                      newDateReturn.value="   ${newtmr.day} / ${newtmr.month} / ${newtmr.year}";
+                    }
+
+
+
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 12.sp,horizontal: 12.sp),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.sp),
+                        color: Colors.white
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_month,
+                          //Icons.flight_takeoff_rounded,
+                          color: Colors.pink,
+                        ),
+                        // Gap(AppLayout.getWidth(10)),
+
+                        //Text(text,style: Styles.textStyle,)
+
+                        SizedBox(width: 10,),
+
+                        //////////////////////////////////////////////////////////////////////////////
+
+
+
+
+                        Text("${newDateReturn.value}",
+
+                          style:GoogleFonts.openSans(color: Colors.black,
+                              fontSize: 15
+
+                          ),
+
+                        )
+
+
+
+                        ///////////////////////////////////////////////////////
+
+                      ],
+                    ),
+                  ),
+                ),
+                visible: Visible,
+              ),
+
+
+              ///////////////////////////////////////
+
+
+              SizedBox(height: 20,),
+
+
+
               ElevatedButton(
                 onPressed: () {
 
@@ -234,7 +385,15 @@ class SearchPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TicketList()
+                          builder: (context) => TicketList(
+
+                            Travel_type: "oneWay",
+                            deperature: "syllet",
+                            arrival: "dhaka",
+                            journey_date: "05%2F06%2F23",
+                            return_date: "flightReturningDate",
+
+                          )
                               ));
 
                   // Get.to(BottomBar(),

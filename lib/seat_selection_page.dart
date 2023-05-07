@@ -1,6 +1,7 @@
 
 
 
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:book_my_seat/book_my_seat.dart';
@@ -10,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:new_nagair/confirm_booking_page.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
 
 class SeatSelectionPage extends StatefulWidget
 {
@@ -19,6 +21,32 @@ class SeatSelectionPage extends StatefulWidget
 }
 
 class _SeatSelectionPageState extends State<SeatSelectionPage> {
+
+
+  Map <String, dynamic>? apiMap;
+
+
+  Future getUserData() async
+  {
+    var response=await http.get(
+        Uri.parse('https://nag-air-server.vercel.app/api/show-single-flight-information?id=644e2230add4679f71549c5a')
+    );
+
+
+    setState((){
+      apiMap = jsonDecode(response.body);
+    });
+    //print(list?.length);
+  }
+
+
+
+
+
+
+
+
+
    List<String> items=[];
 
   var _chairStatus = [
@@ -35,87 +63,102 @@ class _SeatSelectionPageState extends State<SeatSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    getUserData();
+
     // TODO: implement build
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            Container(
-              child: Column(
-                children: <Widget>[
-                  for (int i = 0; i < 9; i++)
-                    Container(
-                      margin: EdgeInsets.only(top: i == 0 ? 50 : 0),
-                      child: Row(
-                        children: <Widget>[
-                          for (int x = 1; x < 7; x++)
-                            Expanded(
-                              child: (x == 3) || (x == 4)
-                                  ? Container()
-                                  : Container(
-                                margin: EdgeInsets.all(5),
-                                child: _chairStatus[i][x - 1] == 1
-                                    ? availableChair(i, x - 1)
-                                    : _chairStatus[i][x - 1] == 2
-                                    ? selectedChair(i, x - 1)
-                                    : reservedChair(),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-            ),
+      appBar: AppBar(
+        title: Text("Select Seat"),
+      ),
+      body: Column(
+        children: [
+          Text("Flight from : ${apiMap?["flightFromCurrentLocation"]} To ${apiMap?["flightToDestinationLocation"]}"),
+          Text("Journey Date : ${apiMap?["flightDepartingDate"]} "),
+          Text("Departing Time : ${apiMap?["flightDepartingTime"]} "),
 
-            SizedBox(height: 20,),
-
-            ElevatedButton(
-              onPressed: () {
-
-                // Navigator.pop(context);
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                           ConfirmBookingPage()
-                    )
-                );
-
-                // Get.to(BottomBar(),
-                //     duration: Duration(milliseconds: 500), //duration of transitions, default 1 sec
-                //     transition: Transition.rightToLeft );
-
-
-
-
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 20.w, vertical: 2.h),
-                backgroundColor: Colors.pink,
-                shape: StadiumBorder(),
-              ),
-              child: Text(
-                "Confirm booking",
-                style: TextStyle(color: Colors.white, fontSize: 20,
-                    fontWeight: FontWeight.bold
+          Text("Air craft Model : ${apiMap?["planeNumber"]}"),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                Container(
+                  child: Column(
+                    children: <Widget>[
+                      for (int i = 0; i < 9; i++)
+                        Container(
+                          margin: EdgeInsets.only(top: i == 0 ? 50 : 0),
+                          child: Row(
+                            children: <Widget>[
+                              for (int x = 1; x < 7; x++)
+                                Expanded(
+                                  child: (x == 3) || (x == 4)
+                                      ? Container()
+                                      : Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: _chairStatus[i][x - 1] == 1
+                                        ? availableChair(i, x - 1)
+                                        : _chairStatus[i][x - 1] == 2
+                                        ? selectedChair(i, x - 1)
+                                        : reservedChair(),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
+
+                SizedBox(height: 20,),
+
+                ElevatedButton(
+                  onPressed: () {
+
+                    // Navigator.pop(context);
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                               ConfirmBookingPage()
+                        )
+                    );
+
+                    // Get.to(BottomBar(),
+                    //     duration: Duration(milliseconds: 500), //duration of transitions, default 1 sec
+                    //     transition: Transition.rightToLeft );
+
+
+
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 20.w, vertical: 2.h),
+                    backgroundColor: Colors.pink,
+                    shape: StadiumBorder(),
+                  ),
+                  child: Text(
+                    "Confirm booking",
+                    style: TextStyle(color: Colors.white, fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+
+
+
+
+
+
+
+
+
+              ],
             ),
-
-
-
-
-
-
-
-
-
-          ],
-        ),
+          ),
+        ],
       )
     );
   }
@@ -177,6 +220,9 @@ class _SeatSelectionPageState extends State<SeatSelectionPage> {
           borderRadius: BorderRadius.circular(3.0)),
     );
   }
+
+
+
 
 
 

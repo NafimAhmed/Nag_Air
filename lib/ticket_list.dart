@@ -12,6 +12,17 @@ import 'thick_container.dart';
 
 class TicketList extends StatefulWidget
 {
+
+  final String Travel_type;
+  final String deperature;
+  final String arrival;
+  final String journey_date;
+  final String return_date;
+
+  const TicketList({super.key, required this.Travel_type, required this.deperature, required this.arrival, required this.journey_date, required this.return_date});
+
+
+
   @override
   State<TicketList> createState() => _TicketListState();
 }
