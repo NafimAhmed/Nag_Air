@@ -1,6 +1,9 @@
 
 
 
+import 'dart:convert';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -96,74 +99,74 @@ class RegistrationPage extends StatelessWidget{
               ),),
 
 
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-              child:TextField(
-                maxLines: 1,
-                //controller: emailController,
-                decoration: InputDecoration(
-                    labelText: "Cell Number",
-                    labelStyle: GoogleFonts.raleway(
-
-                    ),
-                    floatingLabelStyle: GoogleFonts.raleway(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.pink,
-
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30)
-                    ),
-                    filled: true,
-                    fillColor: Colors.white70,
-                    hintText: "Your Cell Number",
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: Colors.pink,
-                            width: 1.0
-                        )
-                    )
-                ),
-              ),),
-
-
-
-
-
-
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-              child:TextField(
-                maxLines: 1,
-                //controller: emailController,
-                decoration: InputDecoration(
-                    labelText: "Recidence Phone No.",
-                    labelStyle: GoogleFonts.raleway(
-
-                    ),
-                    floatingLabelStyle: GoogleFonts.raleway(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.pink,
-
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30)
-                    ),
-                    filled: true,
-                    fillColor: Colors.white70,
-                    hintText: "Your Recidence Phone No.",
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: Colors.pink,
-                            width: 1.0
-                        )
-                    )
-                ),
-              ),),
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+            //   child:TextField(
+            //     maxLines: 1,
+            //     //controller: emailController,
+            //     decoration: InputDecoration(
+            //         labelText: "Cell Number",
+            //         labelStyle: GoogleFonts.raleway(
+            //
+            //         ),
+            //         floatingLabelStyle: GoogleFonts.raleway(
+            //           fontSize: 30,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.pink,
+            //
+            //         ),
+            //         border: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(30)
+            //         ),
+            //         filled: true,
+            //         fillColor: Colors.white70,
+            //         hintText: "Your Cell Number",
+            //         focusedBorder: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(10),
+            //             borderSide: BorderSide(
+            //                 color: Colors.pink,
+            //                 width: 1.0
+            //             )
+            //         )
+            //     ),
+            //   ),),
+            //
+            //
+            //
+            //
+            //
+            //
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+            //   child:TextField(
+            //     maxLines: 1,
+            //     //controller: emailController,
+            //     decoration: InputDecoration(
+            //         labelText: "Recidence Phone No.",
+            //         labelStyle: GoogleFonts.raleway(
+            //
+            //         ),
+            //         floatingLabelStyle: GoogleFonts.raleway(
+            //           fontSize: 30,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.pink,
+            //
+            //         ),
+            //         border: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(30)
+            //         ),
+            //         filled: true,
+            //         fillColor: Colors.white70,
+            //         hintText: "Your Recidence Phone No.",
+            //         focusedBorder: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(10),
+            //             borderSide: BorderSide(
+            //                 color: Colors.pink,
+            //                 width: 1.0
+            //             )
+            //         )
+            //     ),
+            //   ),),
 
 
 
@@ -240,50 +243,73 @@ class RegistrationPage extends StatelessWidget{
 
 
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
 
 
                 //Register();
 
 
 
-                // Map<String, String> body = {
-                //   "email":"${emailController.text}",
-                //   "password":"${passwordController.text}"
-                // };
-                //
-                // var response=await http.post(
-                //     Uri.parse('https://nag-air-server.vercel.app/api/signin'),
-                //     body: json.encode(body),
-                //     headers: {
-                //       'Content-Type': 'application/json'
-                //     }
-                // );
-                //
-                // print(response.body);
-                // print(response.statusCode);
-                //
-                // apiMap = jsonDecode(response.body);
-                //
-                // if(response.statusCode==200){
-                //
-                //   Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) =>
-                //               BottomBar(
-                //                 initindx: 0,
-                //                 usersName: "${apiMap?["user"]["name"]}",
-                //                 usersEmail: "${apiMap?["user"]["email"]}",
-                //                 usersID: "${apiMap?["user"]["_id"]}",
-                //                 usersToken: "${apiMap?["token"]}",
-                //               )));
-                //
-                // }
-                //
-                //
-                //
-                //
+                Map<String, String> body = {
+                  "name":"${nameController.text}",
+                  "email":"${emailController.text}",
+                  "password":"${passwordController.text}",
+                  "role": "passenger"
+                };
+
+                var response=await http.post(
+                    Uri.parse('https://nag-air-server.vercel.app/api/signup'),
+                    body: json.encode(body),
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                );
+
+                print(response.body);
+                print(response.statusCode);
+
+                //apiMap = jsonDecode(response.body);
+
+                if(response.statusCode==200){
+
+                  showDialog<void>(
+                    context: context,
+                    barrierDismissible: false, // user must tap button!
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Registration Complete'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: const <Widget>[
+
+                              Icon(Icons.check_circle_outline,
+
+                                size: 50,
+                                color: Colors.green,
+
+                              )
+                              // Text('Regi'),
+                              // Text('Would you like to approve of this message?'),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+
+                }
+
+
+
+
 
 
 
@@ -331,6 +357,9 @@ class RegistrationPage extends StatelessWidget{
       ),
     );
   }
+
+
+
 
   // void Register() {
   //
