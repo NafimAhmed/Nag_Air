@@ -12,6 +12,14 @@ import 'package:http/http.dart' as http;
 class HomePage extends StatefulWidget{
 
 
+  //final int initindx;
+  final String usersName;
+  final String usersID;
+  final String usersToken;
+  final String usersEmail;
+
+  const HomePage({super.key, required this.usersName, required this.usersID, required this.usersToken, required this.usersEmail});
+
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -71,6 +79,16 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(fontSize: 17,color: Colors.grey.shade500,fontWeight: FontWeight.bold)
                       ),
 
+                      Container(
+                        width: 30.w,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text("${widget.usersName}",
+                              style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold)
+                          ),
+                        ),
+                      ),
+
                       SizedBox(width: 5.sp,),
 
                       Text("Book Tickets",
@@ -108,6 +126,10 @@ class _HomePageState extends State<HomePage> {
                         builder: (context) =>
                             BottomBar(
                               initindx: 1,
+                              usersName: widget.usersName,
+                              usersToken: widget.usersToken,
+                              usersID: widget.usersID,
+                              usersEmail: widget.usersEmail,
                             )));
 
               }, child: Container(

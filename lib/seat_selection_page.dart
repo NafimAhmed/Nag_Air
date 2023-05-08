@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 import 'package:book_my_seat/book_my_seat.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:new_nagair/confirm_booking_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
+import 'package:google_fonts/google_fonts.dart';
 
 class SeatSelectionPage extends StatefulWidget
 {
@@ -72,15 +74,59 @@ class _SeatSelectionPageState extends State<SeatSelectionPage> {
         title: Text("Select Seat"),
       ),
       body: Column(
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Flight from : ${apiMap?["flightFromCurrentLocation"]} To ${apiMap?["flightToDestinationLocation"]}"),
-          Text("Journey Date : ${apiMap?["flightDepartingDate"]} "),
-          Text("Departing Time : ${apiMap?["flightDepartingTime"]} "),
 
-          Text("Air craft Model : ${apiMap?["planeNumber"]}"),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                Text("Flight from : ${apiMap?["flightFromCurrentLocation"]} To ${apiMap?["flightToDestinationLocation"]}",
+
+                  style: GoogleFonts.raleway(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),
+
+                ),
+                Text("Journey Date : ${dateFormate(apiMap?["flightDepartingDate"])} ",
+                  style: GoogleFonts.raleway(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),
+
+                ),
+                Text("Departing Time : ${apiMap?["flightDepartingTime"]} ",
+
+                  style: GoogleFonts.raleway(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),
+
+                ),
+                Text("Air craft Model : ${apiMap?["planeNumber"]}",
+
+                  style: GoogleFonts.raleway(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),
+
+                ),
+
+              ],
+            ),
+          ),
+
+
+
+
           Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
+
               children: [
                 Container(
                   child: Column(
@@ -221,6 +267,40 @@ class _SeatSelectionPageState extends State<SeatSelectionPage> {
     );
   }
 
+
+  String dateFormate(String data){
+
+
+    DateTime dateTime = getFormattedDateFromFormattedString(
+        value: data,
+        currentFormat: "yyyy-MM-ddTHH:mm:ssZ",
+        desiredFormat: "yyyy-MM-dd");
+
+
+    String formattedDate = DateFormat.yMMMEd().format(dateTime);
+
+    return formattedDate;//dateTime.toString();
+
+
+
+  }
+
+
+  getFormattedDateFromFormattedString(
+      {required value,
+        required String currentFormat,
+        required String desiredFormat,
+        isUtc = false}) {
+    DateTime? dateTime = DateTime.now();
+    if (value != null || value.isNotEmpty) {
+      try {
+        dateTime = DateFormat(currentFormat).parse(value, isUtc).toLocal();
+      } catch (e) {
+        print("$e");
+      }
+    }
+    return dateTime;
+  }
 
 
 

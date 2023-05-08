@@ -1,5 +1,7 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/home_page.dart';
 import 'package:new_nagair/registration_page.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
 
 import 'bottom_nav_page.dart';
 
@@ -14,6 +17,41 @@ class LoginPage extends StatelessWidget
 {
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
+
+  Map <String, dynamic>? apiMap;
+
+
+
+
+
+  // Future getUserData() async
+  // {
+  //   var response=await http.post(
+  //       Uri.parse('https://nag-air-server.vercel.app/api/signin'),
+  //     body: json.encode(body),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   );
+  //
+  //   print(response.body);
+  //   print(response.statusCode);
+  //
+  //
+  //
+  //
+  //   // setState((){
+  //   //   apiMap = jsonDecode(response.body);
+  //   // });
+  //   //print(list?.length);
+  // }
+
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,17 +144,54 @@ class LoginPage extends StatelessWidget
 
 
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
 
                // Navigator.pop(context);
 
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            BottomBar(
-                              initindx: 0,
-                            )));
+                //getUserData();
+
+                Map<String, String> body = {
+                  "email":"${emailController.text}",
+                  "password":"${passwordController.text}"
+                };
+
+                var response=await http.post(
+                    Uri.parse('https://nag-air-server.vercel.app/api/signin'),
+                    body: json.encode(body),
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                );
+
+                print(response.body);
+                print(response.statusCode);
+
+                apiMap = jsonDecode(response.body);
+
+                if(response.statusCode==200){
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              BottomBar(
+                                initindx: 0,
+                                usersName: "${apiMap?["user"]["name"]}",
+                                usersEmail: "${apiMap?["user"]["email"]}",
+                                usersID: "${apiMap?["user"]["_id"]}",
+                                usersToken: "${apiMap?["token"]}",
+                              )));
+
+                }
+
+
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) =>
+                //             BottomBar(
+                //               initindx: 0,
+                //             )));
 
                 // Get.to(BottomBar(),
                 //     duration: Duration(milliseconds: 500), //duration of transitions, default 1 sec

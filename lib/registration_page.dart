@@ -10,6 +10,13 @@ import 'package:http/http.dart' as http;
 import 'api.dart';
 
 class RegistrationPage extends StatelessWidget{
+
+  TextEditingController emailController=TextEditingController();
+  TextEditingController nameController=TextEditingController();
+  TextEditingController passwordController=TextEditingController();
+  TextEditingController confirmPasswordController=TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -23,7 +30,7 @@ class RegistrationPage extends StatelessWidget{
               padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
               child:TextField(
                 maxLines: 1,
-                //controller: emailController,
+                controller: nameController,
                 decoration: InputDecoration(
                     labelText: "Name",
                     labelStyle: GoogleFonts.raleway(
@@ -60,7 +67,7 @@ class RegistrationPage extends StatelessWidget{
               padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
               child:TextField(
                 maxLines: 1,
-                //controller: emailController,
+                controller: emailController,
                 decoration: InputDecoration(
                     labelText: "Email",
                     labelStyle: GoogleFonts.raleway(
@@ -165,7 +172,7 @@ class RegistrationPage extends StatelessWidget{
               padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
               child:TextField(
                 maxLines: 1,
-                //controller: passwordController,
+                controller: passwordController,
                 decoration: InputDecoration(
 
                     labelStyle: GoogleFonts.raleway(
@@ -200,7 +207,7 @@ class RegistrationPage extends StatelessWidget{
               padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
               child:TextField(
                 maxLines: 1,
-                //controller: passwordController,
+                controller: confirmPasswordController,
                 decoration: InputDecoration(
 
                     labelStyle: GoogleFonts.raleway(
@@ -236,7 +243,51 @@ class RegistrationPage extends StatelessWidget{
               onPressed: () {
 
 
-                Register();
+                //Register();
+
+
+
+                // Map<String, String> body = {
+                //   "email":"${emailController.text}",
+                //   "password":"${passwordController.text}"
+                // };
+                //
+                // var response=await http.post(
+                //     Uri.parse('https://nag-air-server.vercel.app/api/signin'),
+                //     body: json.encode(body),
+                //     headers: {
+                //       'Content-Type': 'application/json'
+                //     }
+                // );
+                //
+                // print(response.body);
+                // print(response.statusCode);
+                //
+                // apiMap = jsonDecode(response.body);
+                //
+                // if(response.statusCode==200){
+                //
+                //   Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (context) =>
+                //               BottomBar(
+                //                 initindx: 0,
+                //                 usersName: "${apiMap?["user"]["name"]}",
+                //                 usersEmail: "${apiMap?["user"]["email"]}",
+                //                 usersID: "${apiMap?["user"]["_id"]}",
+                //                 usersToken: "${apiMap?["token"]}",
+                //               )));
+                //
+                // }
+                //
+                //
+                //
+                //
+
+
+
+
                 // Navigator.pop(context);
 
                 // Navigator.push(
@@ -281,17 +332,17 @@ class RegistrationPage extends StatelessWidget{
     );
   }
 
-  void Register() {
-
-   var data={
-     "name":"Name",
-     "email": "rew@gmail.com",
-     "password": "12345678",
-     "role": "passenger"
-   };
-
-   var resp=Callapi().postData(data,"");
-
-  }
+  // void Register() {
+  //
+  //  var data={
+  //    "name":"Name",
+  //    "email": "rew@gmail.com",
+  //    "password": "12345678",
+  //    "role": "passenger"
+  //  };
+  //
+  //  var resp=Callapi().postData(data,"");
+  //
+  // }
 
 }

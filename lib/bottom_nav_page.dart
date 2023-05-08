@@ -13,22 +13,22 @@ import 'ticket_screen.dart';
 class BottomBar extends StatelessWidget{
 
   final int initindx;
+  final String usersName;
+  final String usersID;
+  final String usersToken;
+  final String usersEmail;
+
+  BottomBar({super.key, required this.initindx, required this.usersName, required this.usersID, required this.usersToken, required this.usersEmail});
 
 
 
-  static final List<Widget> _widgetOptions =<Widget>[
 
-     HomePage(),
-    SearchPage(),
-    TicketScreen(),
 
-     ProfilePage(),
 
-  ];
-
-   BottomBar({super.key, required this.initindx});
+   //BottomBar({super.key, required this.initindx});
 
   RxInt setSelectedIndex=0.obs;
+
 
 
 
@@ -47,6 +47,30 @@ class BottomBar extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
+
+     final List<Widget> _widgetOptions =<Widget>[
+
+      HomePage(
+        usersName: usersName,
+        usersEmail: usersEmail,
+        usersID: usersID,
+        usersToken: usersToken,
+      ),
+      SearchPage(),
+      TicketScreen(),
+
+      ProfilePage(
+        userId: usersID,
+        usertoken: usersToken,
+      ),
+
+    ];
+
+
+
+
+
     setSelectedIndex.value=initindx;
     // TODO: implement build
     return Obx(() => Scaffold(

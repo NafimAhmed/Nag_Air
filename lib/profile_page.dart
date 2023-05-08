@@ -1,13 +1,54 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
 
-class ProfilePage extends StatelessWidget
+class ProfilePage extends StatefulWidget
 {
+
+  final String usertoken;
+  final String userId;
+
+  const ProfilePage({super.key, required this.usertoken, required this.userId});
+
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  Map <String, dynamic>? apiMap;
+
+  Future getUserData() async
+  {
+    var response=await http.get(
+        Uri.parse('https://nag-air-server.vercel.app/api/user-details?id=${widget.userId}'),
+
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${widget.usertoken}',
+        }
+
+
+    );
+
+
+    setState((){
+      apiMap = jsonDecode(response.body);
+    });
+    //print(list?.length);
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    getUserData();
+
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -40,8 +81,8 @@ class ProfilePage extends StatelessWidget
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Passenger's Name",style: TextStyle(fontSize: 21,color: Color(0xFF3b3b3b),fontWeight: FontWeight.bold),),
-                        Text("example@gmail.com",style: TextStyle(
+                        Text("${apiMap?["name"]}",style: TextStyle(fontSize: 21,color: Color(0xFF3b3b3b),fontWeight: FontWeight.bold),),
+                        Text("${apiMap?["email"]}",style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.grey.shade500
@@ -286,5 +327,4 @@ class ProfilePage extends StatelessWidget
 
     );
   }
-
 }
