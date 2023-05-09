@@ -1,13 +1,16 @@
 
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/ticket_list.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
 
-enum SingingCharacter { One_way, Round }
+enum SingingCharacter { oneWay, roundTrip }
 // class SearchPage extends StatefulWidget{
 //
 //
@@ -21,9 +24,26 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-   List<String> listDeparature = <String>['Deparature', 'Dhaka', 'Rajshahi', 'Jassor'];
 
-   List<String> listArrival = <String>['Arrival', 'Dhaka', 'Rajshahi', 'Jassor'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   List<String> listDeparature = <String>['Deparature', 'Dhaka','Syllet','Barishal','Thakurgaon', 'Rajshahi', 'Jassor'];
+
+   List<String> listArrival = <String>['Arrival', 'Dhaka','Syllet','Barishal','Thakurgaon','Rajshahi', 'Jassor'];
 
    RxString dropdownValueDeparature = 'Deparature'.obs;
 
@@ -34,13 +54,75 @@ class _SearchPageState extends State<SearchPage> {
    RxString newDateReturn="Select return date".obs;
 
    DateTime date=DateTime(2023,01,1);
-   SingingCharacter? _character = SingingCharacter.One_way;
+   SingingCharacter? _character = SingingCharacter.oneWay;
    bool Visible=false;
 
 
-  @override
+
+
+
+   // List<dynamic>? listDomestic,listInternational,listall;
+   // List<String>?listName;
+   //
+   // Future getUserDataLocation() async
+   // {
+   //   var responseDomestic=await http.get(
+   //       Uri.parse('https://nag-air-server.vercel.app/api/show-domestic-flight')
+   //   );
+   //
+   //   var responseInternational=await http.get(
+   //       Uri.parse('https://nag-air-server.vercel.app/api/show-international-flight')
+   //   );
+   //
+   //  // setState((){
+   //     listDomestic = jsonDecode(responseDomestic.body);
+   //     listInternational=jsonDecode(responseInternational.body);
+   //
+   //     listall=listDomestic!+listInternational!;
+   //
+   //     for(int i=0;i<listall!.length;i++){
+   //       listName?.add("${listall![i]["flightLocationName"]}");
+   //     }
+   //
+   //     setState(() {
+   //
+   //       listArrival=listArrival+listName!;
+   //       listDeparature=listDeparature+listName!;
+   //
+   //
+   //     });
+   //
+   //
+   //
+   //
+   //
+   //  // });
+   //
+   //   //print(list?.length);
+   //
+   // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+   @override
   Widget build(BuildContext context) {
 
+
+    String TrvType="oneWay";
+
+
+
+    //getUserDataLocation();
 
 
 
@@ -78,12 +160,13 @@ class _SearchPageState extends State<SearchPage> {
                         Row(
                           children: [
                             Radio<SingingCharacter>(
-                              value: SingingCharacter.One_way,
+                              value: SingingCharacter.oneWay,
                               groupValue: _character,
                               onChanged: (SingingCharacter? value) {
                                 setState(() {
                                   _character = value;
                                   Visible=false;
+                                  TrvType="oneWay";
                                 });
                               },
                             ),
@@ -93,12 +176,15 @@ class _SearchPageState extends State<SearchPage> {
                         Row(
                           children: [
                             Radio<SingingCharacter>(
-                              value: SingingCharacter.Round,
+                              value: SingingCharacter.roundTrip,
                               groupValue: _character,
                               onChanged: (SingingCharacter? value) {
                                 setState(() {
                                   _character = value;
                                   Visible=true;
+
+                                  TrvType="roundTrip";
+
                                 });
                               },
                             ),
@@ -387,9 +473,9 @@ class _SearchPageState extends State<SearchPage> {
                       MaterialPageRoute(
                           builder: (context) => TicketList(
 
-                            Travel_type: "oneWay",
-                            deperature: "syllet",
-                            arrival: "dhaka",
+                            Travel_type: "$TrvType",
+                            deperature: "${dropdownValueDeparature.value.toLowerCase()}",
+                            arrival: "${dropdownValueArrival.value.toLowerCase()}",
                             journey_date: "05%2F06%2F23",
                             return_date: "flightReturningDate",
 
@@ -437,4 +523,14 @@ class _SearchPageState extends State<SearchPage> {
 
     );
   }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+   // getUserDataLocation();
+    super.initState();
+  }
+
+
 }

@@ -42,7 +42,7 @@ class TicketScreen extends StatelessWidget
                     totalSwitches: 2,
                     labels: ['Upcoming', 'Previous'],
                     icons: [Icons.airplane_ticket, Icons.confirmation_num],
-                    activeBgColors: [[Colors.pink],[Colors.grey]],
+                    activeBgColors: [[Colors.pink],[Colors.blue]],
                     onToggle: (index) {
                       print('switched to: $index');
                     },
