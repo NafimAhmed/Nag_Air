@@ -1,4 +1,4 @@
-package com.nagair.app.new_nagair
+package com.nagair.app
 
 import io.flutter.embedding.android.FlutterActivity
 

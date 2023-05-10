@@ -12,13 +12,24 @@ import 'package:http/http.dart' as http;
 
 import 'api.dart';
 
-class RegistrationPage extends StatelessWidget{
+class RegistrationPage extends StatefulWidget{
 
+  @override
+  State<RegistrationPage> createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController emailController=TextEditingController();
+
   TextEditingController nameController=TextEditingController();
+
   TextEditingController passwordController=TextEditingController();
+
   TextEditingController confirmPasswordController=TextEditingController();
 
+  bool _isObscure=true;
+
+  bool _isObscure2=true;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +187,18 @@ class RegistrationPage extends StatelessWidget{
               child:TextField(
                 maxLines: 1,
                 controller: passwordController,
+                obscureText: _isObscure,
                 decoration: InputDecoration(
+
+                    suffixIcon: IconButton(
+                      icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                      onPressed: (){
+                        setState(() {
+                          _isObscure= !_isObscure;
+                        });
+                      },
+                    ),
+                    suffixIconColor: Colors.grey,
 
                     labelStyle: GoogleFonts.raleway(
 
@@ -211,7 +233,19 @@ class RegistrationPage extends StatelessWidget{
               child:TextField(
                 maxLines: 1,
                 controller: confirmPasswordController,
+                obscureText: _isObscure2,
                 decoration: InputDecoration(
+
+
+                    suffixIcon: IconButton(
+                      icon: Icon(_isObscure2 ? Icons.visibility : Icons.visibility_off),
+                      onPressed: (){
+                        setState(() {
+                          _isObscure2= !_isObscure2;
+                        });
+                      },
+                    ),
+                    suffixIconColor: Colors.grey,
 
                     labelStyle: GoogleFonts.raleway(
 
@@ -357,21 +391,4 @@ class RegistrationPage extends StatelessWidget{
       ),
     );
   }
-
-
-
-
-  // void Register() {
-  //
-  //  var data={
-  //    "name":"Name",
-  //    "email": "rew@gmail.com",
-  //    "password": "12345678",
-  //    "role": "passenger"
-  //  };
-  //
-  //  var resp=Callapi().postData(data,"");
-  //
-  // }
-
 }

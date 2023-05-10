@@ -13,46 +13,22 @@ import 'package:http/http.dart' as http;
 
 import 'bottom_nav_page.dart';
 
-class LoginPage extends StatelessWidget
+class LoginPage extends StatefulWidget
 {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController=TextEditingController();
+
   TextEditingController passwordController=TextEditingController();
 
   Map <String, dynamic>? apiMap;
 
-
-
-
+  bool _isObscure=true;
 
   // Future getUserData() async
-  // {
-  //   var response=await http.post(
-  //       Uri.parse('https://nag-air-server.vercel.app/api/signin'),
-  //     body: json.encode(body),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   );
-  //
-  //   print(response.body);
-  //   print(response.statusCode);
-  //
-  //
-  //
-  //
-  //   // setState((){
-  //   //   apiMap = jsonDecode(response.body);
-  //   // });
-  //   //print(list?.length);
-  // }
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -112,7 +88,20 @@ class LoginPage extends StatelessWidget
               child:TextField(
                 maxLines: 1,
                 controller: passwordController,
+                obscureText: _isObscure,
                 decoration: InputDecoration(
+
+
+
+                    suffixIcon: IconButton(
+                      icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                      onPressed: (){
+                        setState(() {
+                          _isObscure= !_isObscure;
+                        });
+                      },
+                    ),
+                    suffixIconColor: Colors.grey,
 
                     labelStyle: GoogleFonts.raleway(
 
@@ -276,12 +265,9 @@ class LoginPage extends StatelessWidget
     );
   }
 
-
-
   void Register(){
 
 
 
   }
-
 }

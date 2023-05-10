@@ -1,7 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nagair.app.new_nagair">
+    package="com.nagair.app">
+
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+
    <application
-        android:label="new_nagair"
+        android:label="NAG AIR"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
