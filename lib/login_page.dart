@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/home_page.dart';
@@ -93,6 +94,8 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
+
+
                     suffixIcon: IconButton(
                       icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
                       onPressed: (){
@@ -135,6 +138,35 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               onPressed: () async {
 
+                if(emailController.text.isEmpty)
+                  {
+
+                    Fluttertoast.showToast(
+                        msg: "Email is empty",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
+
+                    return;
+                  }
+
+                if(passwordController.text.isEmpty)
+                {
+
+                  Fluttertoast.showToast(
+                      msg: "Password is empty",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+
+                  return;
+                }
                // Navigator.pop(context);
 
                 //getUserData();
@@ -169,8 +201,21 @@ class _LoginPageState extends State<LoginPage> {
                                 usersEmail: "${apiMap?["user"]["email"]}",
                                 usersID: "${apiMap?["user"]["_id"]}",
                                 usersToken: "${apiMap?["token"]}",
-                              )));
+                              )
+                      )
+                  );
 
+                }
+                else{
+
+                  Fluttertoast.showToast(
+                      msg: jsonDecode(response.body)['error'].toString(),
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
                 }
 
 

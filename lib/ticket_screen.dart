@@ -32,7 +32,9 @@ class TicketScreen extends StatelessWidget
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: ToggleSwitch(
-                    minWidth: 36.w,
+                    minWidth: 35.5.w,
+
+
 
                     initialLabelIndex: 0,
                     cornerRadius: 20.0,
@@ -42,7 +44,7 @@ class TicketScreen extends StatelessWidget
                     totalSwitches: 2,
                     labels: ['Upcoming', 'Previous'],
                     icons: [Icons.airplane_ticket, Icons.confirmation_num],
-                    activeBgColors: [[Colors.pink],[Colors.blue]],
+                    activeBgColors: [[Colors.pink],[Colors.pink]],
                     onToggle: (index) {
                       print('switched to: $index');
                     },

@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'seat_selection_page.dart';
@@ -67,7 +68,7 @@ class _TicketListState extends State<TicketList> {
 
     getUserDataTicket();
 
-    return Scaffold(
+    return listTicket!=null?Scaffold(
       body: ListView.builder(
 
         itemCount: listTicket?.length,
@@ -298,6 +299,17 @@ class _TicketListState extends State<TicketList> {
 
       }
       ),
+    ):Scaffold(
+        body: Center(
+          child: Text("Searching flight____",
+            style: GoogleFonts.raleway(
+                fontSize: 30,
+                fontWeight: FontWeight.bold
+            ),
+
+
+          ),
+        )
     );
   }
 }

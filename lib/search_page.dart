@@ -36,12 +36,22 @@ class _SearchPageState extends State<SearchPage> {
 
 
 
+  String ticketday="0";
+  String ticketmonth="0";
+  String ticketyear="0";
+
+  String ticketdayr="0";
+  String ticketmonthr="0";
+  String ticketyearr="0";
+
+  bool _Return=false;
 
 
 
 
 
-   List<String> listDeparature = <String>['Deparature', 'Dhaka','Syllet','Barishal','Thakurgaon', 'Rajshahi', 'Jassor'];
+
+  List<String> listDeparature = <String>['Deparature', 'Dhaka','Syllet','Barishal','Thakurgaon', 'Rajshahi', 'Jassor'];
 
    List<String> listArrival = <String>['Arrival', 'Dhaka','Syllet','Barishal','Thakurgaon','Rajshahi', 'Jassor'];
 
@@ -166,6 +176,7 @@ class _SearchPageState extends State<SearchPage> {
                                 setState(() {
                                   _character = value;
                                   Visible=false;
+                                  _Return=false;
                                   TrvType="oneWay";
                                 });
                               },
@@ -182,6 +193,7 @@ class _SearchPageState extends State<SearchPage> {
                                 setState(() {
                                   _character = value;
                                   Visible=true;
+                                  _Return=true;
 
                                   TrvType="roundTrip";
 
@@ -339,6 +351,10 @@ class _SearchPageState extends State<SearchPage> {
                     return;
                   }
                   else{
+
+                    ticketday= "${newtm.day}";
+                    ticketmonth= "${newtm.month}";
+                    ticketyear="${newtm.year}";
                     newDate.value="   ${newtm.day} / ${newtm.month} / ${newtm.year}";
                   }
 
@@ -405,6 +421,10 @@ class _SearchPageState extends State<SearchPage> {
                       return;
                     }
                     else{
+
+                      ticketdayr= "${newtmr.day}";
+                      ticketmonthr= "${newtmr.month}";
+                      ticketyearr="${newtmr.year}";
                       newDateReturn.value="   ${newtmr.day} / ${newtmr.month} / ${newtmr.year}";
                     }
 
@@ -466,6 +486,14 @@ class _SearchPageState extends State<SearchPage> {
               ElevatedButton(
                 onPressed: () {
 
+                  String RDate;
+
+                  if(_Return){
+                    RDate="${ticketyearr}-${ticketmonthr}-${ticketdayr}";
+                  }else{
+                    RDate="flightReturningDate";
+                  }
+
                   // Navigator.pop(context);
 
                   Navigator.push(
@@ -476,8 +504,9 @@ class _SearchPageState extends State<SearchPage> {
                             Travel_type: "$TrvType",
                             deperature: "${dropdownValueDeparature.value.toLowerCase()}",
                             arrival: "${dropdownValueArrival.value.toLowerCase()}",
-                            journey_date: "05%2F06%2F23",
-                            return_date: "flightReturningDate",
+                            journey_date: "${ticketyear}-${ticketmonth}-${ticketday}",
+                            //journey_date: "${ticketyear}%2F${ticketmonth}%2F${ticketday}",
+                            return_date: RDate//"flightReturningDate",
 
                           )
                               ));

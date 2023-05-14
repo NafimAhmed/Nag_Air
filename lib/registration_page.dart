@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
@@ -280,6 +281,84 @@ class _RegistrationPageState extends State<RegistrationPage> {
               onPressed: () async {
 
 
+                if(emailController.text.isEmpty)
+                {
+
+                  Fluttertoast.showToast(
+                      msg: "Email is empty",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+
+                  return;
+                }
+
+                if(passwordController.text.isEmpty)
+                {
+
+                  Fluttertoast.showToast(
+                      msg: "Password is empty",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+
+                  return;
+                }
+
+                if(nameController.text.isEmpty)
+                {
+
+                  Fluttertoast.showToast(
+                      msg: "Name field is empty",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+
+                  return;
+                }
+
+                if(confirmPasswordController.text.isEmpty)
+                {
+
+                  Fluttertoast.showToast(
+                      msg: "Confirm your Password",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+
+                  return;
+                }
+
+                if(passwordController.text!=confirmPasswordController)
+                {
+
+                  Fluttertoast.showToast(
+                      msg: "Password is not matched",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+
+                  return;
+                }
+
+
+
+
                 //Register();
 
 
@@ -339,6 +418,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     },
                   );
 
+                }
+
+                else{
+                  Fluttertoast.showToast(
+                      msg: jsonDecode(response.body)['error'].toString(),
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
                 }
 
 

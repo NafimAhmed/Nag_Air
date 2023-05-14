@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/ticket_view.dart';
 import 'package:sizer/sizer.dart';
 import 'bottom_nav_page.dart';
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
     getUserDataDomestic();
 
     // TODO: implement build
-    return Scaffold(
+    return listDomestic!=null&&listInternational!=null?Scaffold(
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
@@ -427,6 +428,17 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    ):Scaffold(
+        body: Center(
+          child: Text("Loading-----------",
+            style: GoogleFonts.raleway(
+                fontSize: 30,
+                fontWeight: FontWeight.bold
+            ),
+
+
+          ),
+        )
     );
   }
 }
