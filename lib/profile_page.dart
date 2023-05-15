@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:new_nagair/history_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 
@@ -212,7 +213,14 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Container(
                     margin: EdgeInsets.fromLTRB(30, 20, 10, 20),
-                    child : Text("Accumulated mile :",style: TextStyle(fontSize: 21,color: Colors.black,fontWeight: FontWeight.bold),)),
+                    child : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Accumulated mile :",style: TextStyle(fontSize: 21,color: Colors.black,fontWeight: FontWeight.bold),),
+
+
+                      ],
+                    )),
               ],),
 
             Container(
@@ -222,7 +230,91 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontSize: 45,
                       color: Colors.black,
                       fontWeight: FontWeight.w600
-                  ),)
+                  ),),
+
+
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+
+
+                          child: Text(
+                            "View History",
+                            style: GoogleFonts.openSans(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey.shade600,
+
+                            ),
+
+                          ),
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FlightHistory()
+                                )
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+
+
+
+                ],
+              ),
+            ),
+
+            SizedBox(height: 20,),
+
+
+
+            Container(
+             // margin: EdgeInsets.symmetric(horizontal: 3),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(30, 20, 10, 20),
+                        child: Text("Customer ID :",
+
+                          style: GoogleFonts.openSans(
+                            fontSize: 21,
+                            fontWeight: FontWeight.bold
+                          ),
+
+                        ),
+                      ),
+                    ],
+                  ),
+
+                 // SizedBox(height: 5,),
+
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("${widget.userId}",
+
+                        style: GoogleFonts.openSans(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500
+                        ),
+
+                      ),
+                    ],
+                  ),
+
+
                 ],
               ),
             ),
@@ -233,72 +325,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
 
 
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.builder(
-                  physics: ScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  //physics:  BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context,int index){
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // AppColumnLayout(
-                          //   firstText: "23042",
-                          //   SecondText: "KM",
-                          // ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text( "23042",
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black
-                                  )
-                              ),
-                              Text("KM",style: GoogleFonts.openSans(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey
-                              ),)
-                            ],
-                          ),
 
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text( "Cox's Bazar",
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black
-                                  )
-                              ),
-                              Text("travel to",style: GoogleFonts.openSans(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey
-                              ),)
-                            ],
-                          )
-
-
-
-                          // AppColumnLayout(
-                          //   firstText: "Cox's Bazar",
-                          //   SecondText: "travel to",
-                          // ),
-                        ],
-
-                      ),
-                    );
-                  }),
-            ),
 
 
 
@@ -313,6 +340,14 @@ class _ProfilePageState extends State<ProfilePage> {
         child: FloatingActionButton.extended(
 
           onPressed: (){
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        FlightHistory()
+                )
+            );
 
           },
           label: Text("Edit"),

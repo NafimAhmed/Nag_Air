@@ -9,10 +9,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/home_page.dart';
 import 'package:new_nagair/registration_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 
 import 'bottom_nav_page.dart';
+import 'forgot_password.dart';
 
 class LoginPage extends StatefulWidget
 {
@@ -205,6 +207,8 @@ class _LoginPageState extends State<LoginPage> {
                       )
                   );
 
+                  setNoteData("${apiMap?["token"]}");
+
                 }
                 else{
 
@@ -264,6 +268,15 @@ class _LoginPageState extends State<LoginPage> {
             InkWell(
               onTap: (){
 
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        ForgotPassword()
+                    )
+                );
+
               },
               child:  Text("Forgot password ?",
                 style: GoogleFonts.raleway(
@@ -310,7 +323,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void Register(){
+  Future<void> setNoteData(String note) async {
+
+    final SharedPreferences sharedPreferences= await SharedPreferences.getInstance();
+
+    sharedPreferences.setString("Token", note);
 
 
 

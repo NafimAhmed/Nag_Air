@@ -51,13 +51,13 @@ class _SearchPageState extends State<SearchPage> {
 
 
 
-  List<String> listDeparature = <String>['Deparature', 'Dhaka','Syllet','Barishal','Thakurgaon', 'Rajshahi', 'Jassor'];
+  List<String> listDeparature = <String>['Select Deparature Destination', 'Dhaka','Syllet','Barishal','Thakurgaon', 'Rajshahi', 'Jassor'];
 
-   List<String> listArrival = <String>['Arrival', 'Dhaka','Syllet','Barishal','Thakurgaon','Rajshahi', 'Jassor'];
+   List<String> listArrival = <String>['Select Arrival Destination', 'Dhaka','Syllet','Barishal','Thakurgaon','Rajshahi', 'Jassor'];
 
-   RxString dropdownValueDeparature = 'Deparature'.obs;
+   RxString dropdownValueDeparature = 'Select Deparature Destination'.obs;
 
-   RxString dropdownValueArrival = 'Arrival'.obs;
+   RxString dropdownValueArrival = 'Select Arrival Destination'.obs;
 
    RxString newDate="Select journey date".obs;
 
@@ -69,48 +69,6 @@ class _SearchPageState extends State<SearchPage> {
 
 
 
-
-
-   // List<dynamic>? listDomestic,listInternational,listall;
-   // List<String>?listName;
-   //
-   // Future getUserDataLocation() async
-   // {
-   //   var responseDomestic=await http.get(
-   //       Uri.parse('https://nag-air-server.vercel.app/api/show-domestic-flight')
-   //   );
-   //
-   //   var responseInternational=await http.get(
-   //       Uri.parse('https://nag-air-server.vercel.app/api/show-international-flight')
-   //   );
-   //
-   //  // setState((){
-   //     listDomestic = jsonDecode(responseDomestic.body);
-   //     listInternational=jsonDecode(responseInternational.body);
-   //
-   //     listall=listDomestic!+listInternational!;
-   //
-   //     for(int i=0;i<listall!.length;i++){
-   //       listName?.add("${listall![i]["flightLocationName"]}");
-   //     }
-   //
-   //     setState(() {
-   //
-   //       listArrival=listArrival+listName!;
-   //       listDeparature=listDeparature+listName!;
-   //
-   //
-   //     });
-   //
-   //
-   //
-   //
-   //
-   //  // });
-   //
-   //   //print(list?.length);
-   //
-   // }
 
 
 
