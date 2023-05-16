@@ -34,6 +34,9 @@ class _LoginPageState extends State<LoginPage> {
   // Future getUserData() async
   @override
   Widget build(BuildContext context) {
+
+
+    check();
     // TODO: implement build
     return Scaffold(
       body: Container(
@@ -207,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                       )
                   );
 
-                  setNoteData("${apiMap?["token"]}");
+                  setNoteData("${apiMap?["token"]}","${apiMap?["user"]["name"]}","${apiMap?["user"]["email"]}","${apiMap?["user"]["_id"]}");
 
                 }
                 else{
@@ -323,13 +326,50 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> setNoteData(String note) async {
+  Future<void> setNoteData(String token,String username,String UserEmail,String UserID) async {
 
     final SharedPreferences sharedPreferences= await SharedPreferences.getInstance();
 
-    sharedPreferences.setString("Token", note);
+    sharedPreferences.setString("Token", token);
+    sharedPreferences.setString("UserName", username);
+    sharedPreferences.setString("UserEmail", UserEmail);
+    sharedPreferences.setString("UserID", UserID);
 
 
 
   }
+
+  Future<dynamic> check() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("Token")) {
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+          BottomBar(
+              initindx: 0,
+              usersName: "${prefs.get("UserName")}",
+              usersEmail: "${prefs.get("UserEmail")}",
+              usersID: "${prefs.get("UserID")}",
+              usersToken: "${prefs.get("Token")}",
+            )
+          )
+      );
+
+      // return BottomBar(
+      //   initindx: 0,
+      //   usersName: "${prefs.get("UserName")}",
+      //   usersEmail: "${prefs.get("UserEmail")}",
+      //   usersID: "${prefs.get("UserID")}",
+      //   usersToken: "${prefs.get("Token")}",
+      // );
+
+    }
+
+  }
+
+
+
 }

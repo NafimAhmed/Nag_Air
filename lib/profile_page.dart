@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_nagair/history_page.dart';
+import 'package:new_nagair/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 
@@ -53,7 +55,30 @@ class _ProfilePageState extends State<ProfilePage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Profile"),
+            InkWell(
+              onTap: ()async{
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove("Token");
+
+                Navigator.pop(context);
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            LoginPage()
+                    )
+                );
+
+
+              },
+                child: Icon(Icons.logout))
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
