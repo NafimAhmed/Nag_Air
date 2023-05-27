@@ -27,6 +27,28 @@ class _SearchPageState extends State<SearchPage> {
 
 
 
+  List<dynamic>? listDomestic,listInternational;
+
+  Future getUserDataDomestic() async
+  {
+    var responseDomestic=await http.get(
+        Uri.parse('https://nag-air-server.vercel.app/api/show-domestic-flight')
+    );
+
+    var responseInternational=await http.get(
+        Uri.parse('https://nag-air-server.vercel.app/api/show-international-flight')
+    );
+
+    setState((){
+      listDomestic = jsonDecode(responseDomestic.body);
+      listInternational=jsonDecode(responseInternational.body);
+
+    });
+
+    //print(list?.length);
+
+  }
+
 
 
 

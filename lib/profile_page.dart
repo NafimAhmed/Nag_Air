@@ -107,12 +107,26 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("${apiMap?["name"]}",style: TextStyle(fontSize: 21,color: Color(0xFF3b3b3b),fontWeight: FontWeight.bold),),
-                        Text("${apiMap?["email"]}",style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey.shade500
+                        Container(
+                          width: 55.w,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                              child: Text("${apiMap?["name"]}",
+                                style: TextStyle(fontSize: 21,color: Color(0xFF3b3b3b),fontWeight: FontWeight.bold),)),
                         ),
+
+
+                        Container(
+                          width: 50.w,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text("${apiMap?["email"]}",style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey.shade500
+                            ),
+                            ),
+                          ),
                         ),
                         SizedBox(height: 8,),
 

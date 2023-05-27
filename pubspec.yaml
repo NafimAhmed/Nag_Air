@@ -37,7 +37,7 @@ dependencies:
   fluentui_system_icons: ^1.1.200
   get: ^4.6.5
   sizer: ^2.0.15
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.4
   shared_preferences: ^2.1.1
   flutter:
     sdk: flutter
