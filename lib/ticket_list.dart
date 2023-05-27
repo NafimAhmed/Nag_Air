@@ -43,7 +43,8 @@ class _TicketListState extends State<TicketList> {
   Future getUserDataTicket() async
   {
     var responseTicket=await http.get(
-        Uri.parse('https://nag-air-server.vercel.app/api/show-search-flight-result?flightReturningDate=${widget.return_date}&travelType=${widget.Travel_type}&flightFromCurrentLocation=${widget.deperature}&flightToDestinationLocation=${widget.arrival}&flightDepartingDate=${widget.journey_date}')
+       // Uri.parse('https://nag-air-server.vercel.app/api/show-search-flight-result?flightReturningDate=${widget.return_date}&travelType=${widget.Travel_type}&flightFromCurrentLocation=${widget.deperature}&flightToDestinationLocation=${widget.arrival}&flightDepartingDate=${widget.journey_date}')
+      Uri.parse("http://nag-air-server.vercel.app/api/show-search-flight-result?flightReturningDate=flightReturningDate&travelType=oneWay&flightFromCurrentLocation=dhaka&flightToDestinationLocation=jessore&flightDepartingDate=05-18-2023")
     );
 
     // var responseInternational=await http.get(
