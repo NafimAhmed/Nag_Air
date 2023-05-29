@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.5
   sizer: ^2.0.15
   google_fonts: ^4.0.4
+  numberpicker: ^2.1.2
   shared_preferences: ^2.1.1
   flutter:
     sdk: flutter

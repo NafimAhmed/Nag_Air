@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:new_nagair/without_seate_selection/passenger_quantity.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'seat_selection_page.dart';
@@ -85,7 +86,7 @@ class _TicketListState extends State<TicketList> {
                     Column(
                       children: [
                         Text(
-                          "${listTicket![index]["flightFromCurrentLocation"]}",
+                          "${listTicket![index]["flightFromCurrentLocation"]}".toUpperCase(),
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold
@@ -176,14 +177,14 @@ class _TicketListState extends State<TicketList> {
 
                     Column(
                       children: [
-                        Text("${listTicket![index]["flightToDestinationLocation"]}",
+                        Text("${listTicket![index]["flightToDestinationLocation"]}".toUpperCase(),
 
                           style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold
                           ),
                         ),
-                        Text("1:30 pm",
+                        Text("${listTicket![index]["flightArrivalTime"]}",
 
                           style:TextStyle(
                               fontSize: 20,
@@ -211,6 +212,17 @@ class _TicketListState extends State<TicketList> {
                     ),
                     //Text("Flight No. : "),
 
+                    SizedBox(height: 10,),
+                    Text("Flight number : ${listTicket![index]["flightNumber"]}",
+
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade600
+                      ),
+
+                    ),
+
 
 
 
@@ -233,7 +245,7 @@ class _TicketListState extends State<TicketList> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>SeatSelectionPage()
+                                                    builder: (context) =>PassengerQuantity()//SeatSelectionPage()
                                                        ));
 
                                           },

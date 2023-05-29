@@ -5,30 +5,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_nagair/ticket_confirmation_pag.dart';
+import 'package:new_nagair/without_seate_selection/ticket_confirm_page.dart';
 import 'package:sizer/sizer.dart';
 
-class ConfirmBookingPage extends StatelessWidget
-{
+class ConfirmPassengerData extends StatelessWidget{
 
 
   DateTime date=DateTime(2023,01,1);
 
-  final List<List<int>> seatList;
-
-   ConfirmBookingPage({super.key, required this.seatList});
-
-
 
   @override
   Widget build(BuildContext context) {
-
-    seatList.removeAt(0);
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -38,7 +27,7 @@ class ConfirmBookingPage extends StatelessWidget
                 children: [
 
 
-                  Text("${seatList}"),
+                  //Text("${seatList}"),
 
 
 
@@ -172,11 +161,11 @@ class ConfirmBookingPage extends StatelessWidget
 
 
 
-             SingleChildScrollView(
-               child: ListView.builder(
+            SingleChildScrollView(
+              child: ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: seatList.length,
+                  itemCount: 3,
                   itemBuilder: (context,int index){
 
                     RxString newDate="Select date of birth".obs;
@@ -185,19 +174,19 @@ class ConfirmBookingPage extends StatelessWidget
                       margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                       padding: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
                       decoration: BoxDecoration(
-                        color: Colors.grey,
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.pink,
-                        ),
-                        borderRadius: BorderRadius.circular(20)
+                          color: Colors.grey,
+                          border: Border.all(
+                            width: 1,
+                            color: Colors.pink,
+                          ),
+                          borderRadius: BorderRadius.circular(20)
                       ),
                       child: Column(
                         children: [
 
                           Text("Passenger ${index+1}"),
 
-                          Text("Seat Number ${seatList[index][0]}/${seatList[index][1]}"),
+                          //Text("Seat Number ${seatList[index][0]}/${seatList[index][1]}"),
 
 
 
@@ -241,10 +230,10 @@ class ConfirmBookingPage extends StatelessWidget
                             margin: EdgeInsets.symmetric(horizontal: 25),
 
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(20)
+                                border: Border.all(
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(20)
                             ),
 
                             child: InkWell(
@@ -319,8 +308,8 @@ class ConfirmBookingPage extends StatelessWidget
                       ),
                     );
                   }
+              ),
             ),
-             ),
 
 
 
@@ -335,7 +324,7 @@ class ConfirmBookingPage extends StatelessWidget
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            TicketConfirmationPage()
+                            TicketConfirmPage()
                     ));
 
                 // Get.to(BottomBar(),
@@ -366,7 +355,8 @@ class ConfirmBookingPage extends StatelessWidget
 
           ],
         ),
-      ),
+      )
+
     );
   }
 
