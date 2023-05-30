@@ -10,14 +10,25 @@ import 'package:sizer/sizer.dart';
 
 class ConfirmPassengerData extends StatelessWidget{
 
+   List<TextEditingController> _controllers=[];
 
   DateTime date=DateTime(2023,01,1);
+  final int passenger_numb;
+
+   ConfirmPassengerData({super.key, required this.passenger_numb});
+
+
 
 
   @override
   Widget build(BuildContext context) {
+
+    //= new List<TextEditingController>();
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Passenger's data"),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -165,10 +176,14 @@ class ConfirmPassengerData extends StatelessWidget{
               child: ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: 3,
+                  itemCount: passenger_numb,
                   itemBuilder: (context,int index){
 
+                   // _controllers.add(new TextEditingController());
+
                     RxString newDate="Select date of birth".obs;
+                    TextEditingController _controllersname=new TextEditingController();
+                    _controllers.add(_controllersname);
                     return Container(
 
                       margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
@@ -194,7 +209,7 @@ class ConfirmPassengerData extends StatelessWidget{
                             padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
                             child:TextField(
                               maxLines: 1,
-                              // controller: emailController,
+                               controller: _controllers[index],
                               decoration: InputDecoration(
                                   labelText: "Passenger Name",
                                   labelStyle: GoogleFonts.raleway(
@@ -324,7 +339,9 @@ class ConfirmPassengerData extends StatelessWidget{
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            TicketConfirmPage()
+                            TicketConfirmPage(
+                              nameList: _controllers,
+                            )
                     ));
 
                 // Get.to(BottomBar(),

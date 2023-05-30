@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class TicketConfirmPage extends StatelessWidget{
+
+  final List<TextEditingController> nameList;
+
+  const TicketConfirmPage({super.key, required this.nameList});
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -39,7 +45,7 @@ class TicketConfirmPage extends StatelessWidget{
               margin: EdgeInsets.symmetric(horizontal: 10),
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 3,
+                  itemCount: nameList.length,
                   itemBuilder: (context,index){
                     return Container(
                       child: Column(
@@ -48,17 +54,17 @@ class TicketConfirmPage extends StatelessWidget{
                           Row(
                             children: [
                               Icon(Icons.person),
-                              Text(" Nafim Ahmed",
+                              Text(" ${nameList[index].text}",
                               ),
                             ],
                           ),
 
-                          Row(
-                            children: [
-                              Icon(Icons.event_seat),
-                              Text(" 2/B")
-                            ],
-                          )
+                          // Row(
+                          //   children: [
+                          //     Icon(Icons.event_seat),
+                          //     Text(" 2/B")
+                          //   ],
+                          // )
                         ],
                       ),
                     );

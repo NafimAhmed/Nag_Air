@@ -260,6 +260,7 @@ class _SearchPageState extends State<SearchPage> {
                                   onTap: (){
                                     setState(() {
 
+                                      dropdownValueDeparature.value=listDomestic![index]["flightLocationName"];
                                       selectedIndex_depart=index;
                                     });
 
@@ -405,7 +406,7 @@ class _SearchPageState extends State<SearchPage> {
                                     InkWell(
                                       onTap: (){
                                         setState(() {
-
+                                          dropdownValueArrival.value=listDomestic![index]["flightLocationName"];
                                           selectedIndex_arrrival=index;
                                         });
 
@@ -748,7 +749,7 @@ class _SearchPageState extends State<SearchPage> {
                     String RDate;
 
                     if(_Return){
-                      RDate="${ticketyearr}-${ticketmonthr}-${ticketdayr}";
+                      RDate="${ticketmonthr}-${ticketdayr}-${ticketyearr}";
                     }else{
                       RDate="flightReturningDate";
                     }
@@ -761,7 +762,7 @@ class _SearchPageState extends State<SearchPage> {
                               Travel_type: "$TrvType",
                               deperature: "${dropdownValueDeparature.value.toLowerCase()}",
                               arrival: "${dropdownValueArrival.value.toLowerCase()}",
-                              journey_date: "${ticketyear}-${ticketmonth}-${ticketday}",
+                              journey_date: "${ticketmonth}-${ticketday}-${ticketyear}",
                               //journey_date: "${ticketyear}%2F${ticketmonth}%2F${ticketday}",
                               return_date: RDate//"flightReturningDate",
 
