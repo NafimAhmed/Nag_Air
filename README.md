@@ -4,13 +4,16 @@
 
 ## This is a air tickeing app
 
-This project is a starting point for a Flutter application.
+This is a air ticketing app made for  NAG AIR. This app is only use for bookiing ticket in NAG AIR.
+In this app There are : 
+1) Search destinetion function.
+2) journey date selection funtion.
+3) Seat seletion funtion.
+4) ticket printing function
 
-A few resources to get you started if this is your first Flutter project:
+In this app, we have used :
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1) MongoDB for Database,
+2) Flutter PDF for ticket printing.
+3) Seat selection.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
