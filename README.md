@@ -1,8 +1,8 @@
-# new_nagair
+# NAG AIR Air Ticketing App
 
-A new Flutter project.
 
-## Getting Started
+
+## This is a air tickeing app
 
 This project is a starting point for a Flutter application.
 
